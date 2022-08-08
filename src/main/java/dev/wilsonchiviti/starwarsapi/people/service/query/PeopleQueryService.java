@@ -11,6 +11,8 @@ public interface PeopleQueryService {
 
     List<Person> findAll(int page);
 
+    Person findOne(String url);
+
     List<Person> searchPerson(String name, int page);
 
 }

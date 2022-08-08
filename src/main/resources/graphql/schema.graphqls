@@ -1,13 +1,19 @@
 type Person {
+    url: String
     name: String
     height: String
     mass: String
     gender: String
-    homeworld: String
+    homeworld: Homeworld
+}
+
+type Homeworld {
+    name: String
 }
 
 type Query {
     getPeople: [Person]!
+    getPerson(url: String): Person
     getPeoplePage(page: Int): [Person]
     searchPerson(name: String): [Person]
     searchPersonPage(name: String, page: Int): [Person]

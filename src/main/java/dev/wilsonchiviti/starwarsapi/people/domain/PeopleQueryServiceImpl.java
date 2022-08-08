@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,11 +28,16 @@ class PeopleQueryServiceImpl implements PeopleQueryService {
     }
 
     @Override
+    public Person findOne(String url) {
+        return peopleRepository.getPerson(URI.create(url));
+    }
+
+    @Override
     public List<Person> searchPerson(String name, int page) {
         try {
             return peopleRepository.searchPerson(name, page)
                     .results();
-        }catch (FeignException ex){
+        } catch (FeignException ex) {
             return Collections.emptyList();
         }
     }

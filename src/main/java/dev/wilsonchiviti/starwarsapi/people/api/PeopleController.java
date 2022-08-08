@@ -26,6 +26,11 @@ public class PeopleController {
     }
 
     @QueryMapping
+    public Person getPerson(@Argument String url) {
+        return peopleQueryService.findOne(url);
+    }
+
+    @QueryMapping
     public List<Person> searchPerson(@Argument String name) {
         return peopleQueryService.searchPerson(name, 1);
     }
