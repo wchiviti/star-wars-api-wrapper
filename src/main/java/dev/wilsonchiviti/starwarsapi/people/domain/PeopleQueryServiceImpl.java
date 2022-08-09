@@ -4,6 +4,7 @@ import dev.wilsonchiviti.starwarsapi.people.service.query.PeopleQueryService;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -18,6 +19,7 @@ class PeopleQueryServiceImpl implements PeopleQueryService {
     private final PeopleRepository peopleRepository;
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Person> findAll(int page) {
         try {
             return peopleRepository.getPeople(page)
@@ -28,11 +30,13 @@ class PeopleQueryServiceImpl implements PeopleQueryService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public Person findOne(String url) {
         return peopleRepository.getPerson(URI.create(url));
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Person> searchPerson(String name, int page) {
         try {
             return peopleRepository.searchPerson(name, page)
